@@ -1,11 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const exphbs = require("express-handlebars");
-const app = express();
 const articles = require("./routes/articles.js");
 const products = require("./routes/products.js");
-const articlesDb = require("./db/articles.js");
-const productsDb = require("./db/products.js");
+
+const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.engine(".hbs", exphbs({ extname: ".hbs" }));
@@ -15,7 +14,8 @@ app.use("/articles", articles);
 app.use("/products", products);
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.render("products", { products: products });
+  //  res.send("Hello World!");
 });
 
 const server = app.listen(3000, () => {
