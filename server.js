@@ -13,10 +13,10 @@ app.set("view engine", ".hbs");
 app.use("/articles", articles);
 app.use("/products", products);
 
-app.get("/", (req, res) => {
-  res.render("products", { products: products });
-  //  res.send("Hello World!");
-});
+// app.get("/", (req, res) => {
+//   res.render("products", { products: products });
+//   res.send("Hello World!");
+// });
 
 const server = app.listen(3000, () => {
   const host = server.address().address;

@@ -11,11 +11,11 @@ const collection = [
 // idCollection prevents ID reuse
 const idCollection = [0, 1, 2, 3, 4, 5, 6, 7];
 
-function all() {
-  console.log(collection);
+function getAllProducts() {
+  // console.log(collection);
 }
 
-function get() {
+function getProduct(data) {
   for (let i = 0; i < collection.length; i++) {
     if (collection[i]["id"] === parseInt(data.id)) {
       console.log(collection[i]);
@@ -63,9 +63,10 @@ function deleteProduct(data) {
 }
 
 module.exports = {
-  all: all,
-  get: get,
+  all: getAllProducts,
+  get: getProduct,
   post: createProduct,
   put: updateProduct,
-  delete: deleteProduct
+  delete: deleteProduct,
+  collection: collection
 };
