@@ -12,7 +12,7 @@ const collection = [
 const idCollection = [0, 1, 2, 3, 4, 5, 6, 7];
 
 function getAllProducts() {
-  // console.log(collection);
+  console.log(collection);
 }
 
 function getProduct(data) {

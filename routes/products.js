@@ -6,8 +6,7 @@ const router = express.Router();
 router.get("/", (req, res) => {
   console.log(req.method + " " + req.url);
   productsDb.all();
-  res.render("products", { products: productsDb.collection });
-  console.log(productsDb.collection);
+  res.render("products/index", { products: productsDb.collection });
   // res.send("routed GET to products.js");
 });
 
