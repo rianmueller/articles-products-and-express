@@ -5,15 +5,14 @@ const router = express.Router();
 
 router.get("/", (req, res) => {
   console.log(req.method + " " + req.url);
-  productsDb.all();
-  res.render("products/index", { products: productsDb.collection });
-  // res.send("routed GET to products.js");
+  let products = productsDb.all();
+  res.render("products/index", { products: products });
 });
 
 router.get("/:id", (req, res) => {
   console.log(req.method + " " + req.url);
-  productsDb.get(req.params);
-  res.send("routed GET to products.js");
+  let product = productsDb.get(req.params);
+  res.render("products/product", product);
 });
 
 router.post("/", (req, res) => {

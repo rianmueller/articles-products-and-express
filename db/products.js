@@ -13,12 +13,14 @@ const idCollection = [0, 1, 2, 3, 4, 5, 6, 7];
 
 function getAllProducts() {
   console.log(collection);
+  return collection;
 }
 
 function getProduct(data) {
   for (let i = 0; i < collection.length; i++) {
     if (collection[i]["id"] === parseInt(data.id)) {
       console.log(collection[i]);
+      return collection[i];
     }
   }
 }
@@ -67,6 +69,5 @@ module.exports = {
   get: getProduct,
   post: createProduct,
   put: updateProduct,
-  delete: deleteProduct,
-  collection: collection
+  delete: deleteProduct
 };
