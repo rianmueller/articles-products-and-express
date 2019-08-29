@@ -52,31 +52,41 @@ function createProduct(name, price, inventory) {
 // update product
 // return product from collection
 function updateProduct(id, name, price, inventory) {
-  for (let i = 0; i < collection.length; i++) {
-    if (collection[i]["id"] === id) {
-      if (name) {
-        collection[i].name = name;
-        // returns false if name has not been updated
-        if (collection[i].name !== name) {
-          return false;
+  // check if ID is in collection
+  if (
+    collection.some(function(element) {
+      return element.id === parseInt(id);
+    }) === false
+  ) {
+    // return false if ID is not in collection
+    return false;
+  } else {
+    for (let i = 0; i < collection.length; i++) {
+      if (collection[i]["id"] === id) {
+        if (name) {
+          collection[i].name = name;
+          // returns false if name has not been updated
+          if (collection[i].name !== name) {
+            return false;
+          }
         }
-      }
-      if (price) {
-        collection[i].price = price;
-        // returns false if name has not been updated
-        if (collection[i].price !== price) {
-          return false;
+        if (price) {
+          collection[i].price = price;
+          // returns false if name has not been updated
+          if (collection[i].price !== price) {
+            return false;
+          }
         }
-      }
-      if (inventory) {
-        collection[i].inventory = inventory;
-        // returns false if name has not been updated
-        if (collection[i].inventory !== inventory) {
-          return false;
+        if (inventory) {
+          collection[i].inventory = inventory;
+          // returns false if name has not been updated
+          if (collection[i].inventory !== inventory) {
+            return false;
+          }
         }
+        console.log(collection[i]);
+        return true;
       }
-      console.log(collection[i]);
-      return true;
     }
   }
 }
