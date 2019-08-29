@@ -11,57 +11,109 @@ const collection = [
 // idCollection prevents ID reuse
 const idCollection = [0, 1, 2, 3, 4, 5, 6, 7];
 
+// return whole collection
 function getAllProducts() {
   console.log(collection);
   return collection;
 }
 
-function getProduct(data) {
+// return product from collection
+function getProduct(id) {
   for (let i = 0; i < collection.length; i++) {
-    if (collection[i]["id"] === parseInt(data.id)) {
+    if (collection[i]["id"] === id) {
       console.log(collection[i]);
       return collection[i];
     }
   }
 }
 
-function createProduct(data) {
-  let newProduct = {};
-  newProduct.id = idCollection.length;
-  newProduct.name = data.name;
-  newProduct.price = parseInt(data.price);
-  newProduct.inventory = parseInt(data.inventory);
-  collection.push(newProduct);
-  idCollection.push(newProduct.id);
-  console.log(collection);
-  console.log(idCollection);
+// add product to collection
+// return product from collection
+function createProduct(name, price, inventory) {
+  let product = {};
+  product.id = idCollection.length;
+  product.name = name;
+  product.price = price;
+  product.inventory = inventory;
+  collection.push(product);
+  idCollection.push(product.id);
+  // console.logs the product in the collection
+  for (let i = 0; i < collection.length; i++) {
+    if (collection[i]["id"] === product.id) {
+      console.log(collection[i]);
+    }
+  }
+  // returns true if product is in the collection
+  return collection.some(function(element) {
+    return element === product;
+  });
 }
 
-function updateProduct(data) {
+// update product
+// return product from collection
+function updateProduct(id, name, price, inventory) {
   for (let i = 0; i < collection.length; i++) {
-    if (collection[i]["id"] === parseInt(data.id)) {
-      if (data.name) {
-        collection[i].name = data.name;
+    if (collection[i]["id"] === id) {
+      if (name) {
+        collection[i].name = name;
+        // returns false if name has not been updated
+        if (collection[i].name !== name) {
+          return false;
+        }
       }
-      if (data.price) {
-        collection[i].price = data.price;
+      if (price) {
+        collection[i].price = price;
+        // returns false if name has not been updated
+        if (collection[i].price !== price) {
+          return false;
+        }
       }
-      if (data.inventory) {
-        collection[i].inventory = data.inventory;
+      if (inventory) {
+        collection[i].inventory = inventory;
+        // returns false if name has not been updated
+        if (collection[i].inventory !== inventory) {
+          return false;
+        }
+      }
+      console.log(collection[i]);
+      return true;
+    }
+  }
+}
+
+// delete product from collection
+// return whole collection
+function deleteProduct(id) {
+  // check if ID is in collection
+  if (
+    collection.some(function(element) {
+      return element.id === parseInt(id);
+    }) === false
+  ) {
+    // return false if ID is not in collection
+    return false;
+  } else {
+    // find and delete element with ID
+    for (let i = 0; i < collection.length; i++) {
+      if (collection[i]["id"] === id) {
+        collection.splice(i, 1);
       }
     }
   }
-  console.log(collection);
-}
-
-function deleteProduct(data) {
-  for (let i = 0; i < collection.length; i++) {
-    if (collection[i]["id"] === parseInt(data.id)) {
-      collection.splice(i, 1);
-    }
+  // check if ID is in collection
+  if (
+    collection.some(function(element) {
+      return element.id === parseInt(id);
+    }) === true
+  ) {
+    // return false if ID is still in collection
+    return false;
+    // return true if ID is not in collection
+  } else {
+    console.log(collection);
+    console.log(idCollection);
+    return true;
   }
-  console.log(collection);
-  console.log(idCollection);
 }
 
 module.exports = {

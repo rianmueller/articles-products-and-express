@@ -1,0 +1,11 @@
+{{errorMessage}}
+<div class="product">
+    <form method="POST" action="/products/{{ this.id }}?_method=PUT" enctype="application/x-www-form-urlencoded">
+        <div class="productId">Product ID: {{ this.id }}</div>
+        <div class="productName">Name: <input type="text" name="name" value="{{ this.name }}"></div>
+        <div class="productPrice">Price: <input type="number" name="price" value="{{ this.price }}"></div>
+        <div class="productInventory">Inventory: <input type="number" name="inventory" value="{{ this.inventory }}">
+        </div>
+        <button type="submit">Update Product</button>
+    </form>
+</div>
