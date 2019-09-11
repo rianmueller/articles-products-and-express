@@ -13,7 +13,6 @@ const idCollection = [0, 1, 2, 3, 4, 5, 6, 7];
 
 // return whole collection
 function getAllProducts() {
-  console.log(collection);
   return collection;
 }
 
@@ -21,7 +20,6 @@ function getAllProducts() {
 function getProduct(id) {
   for (let i = 0; i < collection.length; i++) {
     if (collection[i]["id"] === id) {
-      console.log(collection[i]);
       return collection[i];
     }
   }
@@ -37,12 +35,6 @@ function createProduct(name, price, inventory) {
   product.inventory = inventory;
   collection.push(product);
   idCollection.push(product.id);
-  // console.log the product in the collection
-  for (let i = 0; i < collection.length; i++) {
-    if (collection[i]["id"] === product.id) {
-      console.log(collection[i]);
-    }
-  }
   // return true if product is in the collection
   return collection.some(function(element) {
     return element === product;
@@ -70,12 +62,6 @@ function updateProduct(id, name, price, inventory) {
       }
     }
   }
-  // console.log product
-  for (let i = 0; i < collection.length; i++) {
-    if (collection[i]["id"] === id) {
-      console.log(collection[i]);
-    }
-  }
   // check if product has been updated
   return collection.some(function(element) {
     return (
@@ -90,13 +76,13 @@ function updateProduct(id, name, price, inventory) {
 // delete product from collection
 // return whole collection
 function deleteProduct(id) {
-  // check if ID is in collection
+  // check if product is in collection
   if (
     collection.some(function(element) {
       return element.id === parseInt(id);
     }) === false
   ) {
-    // return false if ID is not in collection
+    // return false if product is not in collection
     return false;
   } else {
     // find and delete product with ID

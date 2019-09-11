@@ -27,7 +27,6 @@ const collection = [
 
 // return whole collection
 function getAllArticles() {
-  console.log(collection);
   return collection;
 }
 
@@ -35,7 +34,6 @@ function getAllArticles() {
 function getArticle(title) {
   for (let i = 0; i < collection.length; i++) {
     if (collection[i]["title"] === title) {
-      console.log(collection[i]);
       return collection[i];
     }
   }
@@ -60,12 +58,6 @@ function createArticle(title, body, author) {
     article.author = author;
     article.urlTitle = encodeURIComponent(title);
     collection.push(article);
-    // console.log the article in the collection
-    for (let i = 0; i < collection.length; i++) {
-      if (collection[i]["title"] === article.title) {
-        console.log(collection[i]);
-      }
-    }
     // return true if article is in the collection
     return collection.some(function(element) {
       return element === article;
@@ -98,12 +90,6 @@ function updateArticle(title, body, author, reqParamsTitle) {
       }
     }
   }
-  // console.log updated article
-  for (let i = 0; i < collection.length; i++) {
-    if (collection[i].title === title) {
-      console.log(collection[i]);
-    }
-  }
   // check if article has been updated
   return collection.some(function(element) {
     return (
@@ -134,8 +120,6 @@ function deleteArticle(title) {
       }
     }
   }
-  // console.log the collection
-  console.log(collection);
   // check if article has been deleted
   return collection.every(function(element) {
     return element.title !== title;

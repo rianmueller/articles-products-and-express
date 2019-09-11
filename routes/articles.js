@@ -5,38 +5,10 @@ const router = express.Router();
 
 let errorMessage = "";
 
-/*
-Routes
-POST /articles
-  if POST is successful, return GET /articles (index)
-  if POST is unsuccessful, return GET /articles/new (new article form)
-
-PUT /articles/:title
-  if PUT is successful, return GET /articles/:title (individual article page)
-  if PUT is unsuccessful, return GET /articles/:title/edit (article update form)
-
-DELETE /articles/:title
-  if DELETE is successful, return GET /articles (index)
-  if DELETE is unsuccessful, return GET /articles/:title (individual article page)
-
-GET /articles
-  return articles index
-
-GET /articles/:title
-  return individual article page
-
-GET /articles/:title/edit
-  return article update form
-
-GET /articles/new
-  return new article input form
-*/
-
 // GET new article page
 // Send nothing
 // Return html to create new article
 router.get("/new", (req, res) => {
-  console.log("Get new article page " + req.method + " " + req.url);
   res.render("articles/new", {
     errorMessage: errorMessage
   });
@@ -47,7 +19,6 @@ router.get("/new", (req, res) => {
 // Send params.title
 // Return html article to edit
 router.get("/:title/edit", (req, res) => {
-  console.log("Get article edit page " + req.method + " " + req.url);
   let title = req.params.title;
   let article = articlesDb.get(title);
   res.render("articles/edit", {
@@ -61,7 +32,6 @@ router.get("/:title/edit", (req, res) => {
 // Send params.title
 // Return html article
 router.get("/:title", (req, res) => {
-  console.log("Get article view page " + req.method + " " + req.url);
   let title = req.params.title;
   let article = articlesDb.get(title);
   res.render("articles/article", {
@@ -75,7 +45,6 @@ router.get("/:title", (req, res) => {
 // Send nothing
 // Return html index of articles
 router.get("/", (req, res) => {
-  console.log("Get all articles " + req.method + " " + req.url);
   let articles = articlesDb.all();
   res.render("articles/index", {
     articles: articles,
@@ -90,7 +59,6 @@ router.get("/", (req, res) => {
 // Redirect to GET /articles if successful
 // Redirect to GET /articles/new and notify user if unsuccessful
 router.post("/", (req, res) => {
-  console.log("Post new article " + req.method + " " + req.url);
   let title = req.body.title;
   let body = req.body.body;
   let author = req.body.author;
@@ -114,7 +82,6 @@ router.post("/", (req, res) => {
 // Redirect to GET /articles/:title if successful
 // Redirect to GET /articles/:title/edit and notify user if unsuccessful
 router.put("/:title", (req, res) => {
-  console.log("Update article " + req.method + " " + req.url);
   let title = req.body.title;
   let body = req.body.body;
   let author = req.body.author;
@@ -138,7 +105,6 @@ router.put("/:title", (req, res) => {
 // Redirect to /articles and notify user if successful
 // Redirect to /articles/:title and notify user if unsuccessful
 router.delete("/:title", (req, res) => {
-  console.log("Delete article " + req.method + " " + req.url);
   let title = req.params.title;
   if (!title) {
     errorMessage = "Cannot delete article";
