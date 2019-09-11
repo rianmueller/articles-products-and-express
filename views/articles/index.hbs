@@ -1,0 +1,9 @@
+{{errorMessage}}
+{{#each articles }}
+<div class="article">
+    <div class="articleTitle">Article Title: {{ this.title }}</div>
+    <div class="articleBody">Body: {{ this.body }}</div>
+    <div class="articleAuthor">Author: {{ this.author }}</div>
+    <div class="articleURLTitle">URL Title: {{ this.urlTitle }}</div>
+</div>
+{{/each}}

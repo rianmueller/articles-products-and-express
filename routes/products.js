@@ -40,6 +40,7 @@ router.get("/new", (req, res) => {
   res.render("products/new", {
     errorMessage: errorMessage
   });
+  errorMessage = "";
 });
 
 // GET product
@@ -53,6 +54,7 @@ router.get("/:id/edit", (req, res) => {
     product: product,
     errorMessage: errorMessage
   });
+  errorMessage = "";
 });
 
 // GET product
@@ -66,6 +68,7 @@ router.get("/:id", (req, res) => {
     product: product,
     errorMessage: errorMessage
   });
+  errorMessage = "";
 });
 
 // GET all products
@@ -78,6 +81,7 @@ router.get("/", (req, res) => {
     products: products,
     errorMessage: errorMessage
   });
+  errorMessage = "";
 });
 
 // POST product
@@ -89,13 +93,18 @@ router.post("/", (req, res) => {
   console.log("Post new product " + req.method + " " + req.url);
   let price = parseInt(req.body.price);
   let inventory = parseInt(req.body.inventory);
-  let success = productsDb.post(req.body.name, price, inventory);
-  if (success === true) {
-    errorMessage = "";
-    res.redirect("/products/");
-  } else {
+  if (!req.body.name || !price || !inventory) {
     errorMessage = "Cannot create new product";
     res.redirect("/products/new");
+  } else {
+    let success = productsDb.post(req.body.name, price, inventory);
+    if (success === true) {
+      errorMessage = "Product created successfully!";
+      res.redirect("/products/");
+    } else {
+      errorMessage = "Cannot create new product";
+      res.redirect("/products/new");
+    }
   }
 });
 
@@ -108,13 +117,18 @@ router.put("/:id", (req, res) => {
   let id = parseInt(req.params.id);
   let price = parseInt(req.body.price);
   let inventory = parseInt(req.body.inventory);
-  let success = productsDb.put(id, req.body.name, price, inventory);
-  if (success === true) {
-    errorMessage = "";
-    res.redirect("/products/" + id);
-  } else {
+  if (!req.body.name || !price || !inventory) {
     errorMessage = "Cannot update product";
     res.redirect("/products/" + id + "/edit");
+  } else {
+    let success = productsDb.put(id, req.body.name, price, inventory);
+    if (success === true) {
+      errorMessage = "Product updated successfully!";
+      res.redirect("/products/" + id);
+    } else {
+      errorMessage = "Cannot update product";
+      res.redirect("/products/" + id + "/edit");
+    }
   }
 });
 
@@ -125,14 +139,19 @@ router.put("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
   console.log("Delete product " + req.method + " " + req.url);
   let id = parseInt(req.params.id);
-  let success = productsDb.delete(id);
-  console.log(id + " " + success);
-  if (success === true) {
-    errorMessage = "Product deleted successfully";
-    res.redirect("/products/");
-  } else {
+  if (!id) {
     errorMessage = "Cannot delete product";
     res.redirect("/products/" + id);
+  } else {
+    let success = productsDb.delete(id);
+    console.log(id + " " + success);
+    if (success === true) {
+      errorMessage = "Product deleted successfully";
+      res.redirect("/products/");
+    } else {
+      errorMessage = "Cannot delete product";
+      res.redirect("/products/" + id);
+    }
   }
 });
 

@@ -1,0 +1,10 @@
+{{errorMessage}}
+<div class="article">
+    <form method="POST" action="/articles/{{ article.urlTitle }}?_method=PUT"
+        enctype="application/x-www-form-urlencoded">
+        <div class="articleTitle">Article Title: <input type="text" name="title" value="{{ article.title }}"></div>
+        <div class="articleBody">Body: <input type="text" name="body" value="{{ article.body }}"></div>
+        <div class="articleAuthor">Author: <input type="text" name="author" value="{{ article.author }}"></div>
+        <button type="submit">Update Article</button>
+    </form>
+</div>

@@ -1,12 +1,12 @@
 const collection = [
-  { id: 7, name: "Apples", price: 11, inventory: 10 },
-  { id: 6, name: "Bananas", price: 12, inventory: 200 },
-  { id: 5, name: "Carrots", price: 13, inventory: 3000 },
-  { id: 4, name: "Dates", price: 14, inventory: 40000 },
-  { id: 3, name: "Eggs", price: 15, inventory: 500000 },
-  { id: 2, name: "Figs", price: 16, inventory: 6000000 },
-  { id: 1, name: "Grapes", price: 17, inventory: 70000000 },
-  { id: 0, name: "Hazelnuts", price: 18, inventory: 800000000 }
+  { id: 7, name: "Apples", price: 11, inventory: 1 },
+  { id: 6, name: "Bananas", price: 12, inventory: 20 },
+  { id: 5, name: "Carrots", price: 13, inventory: 300 },
+  { id: 4, name: "Dates", price: 14, inventory: 4000 },
+  { id: 3, name: "Eggs", price: 15, inventory: 50000 },
+  { id: 2, name: "Figs", price: 16, inventory: 600000 },
+  { id: 1, name: "Grapes", price: 17, inventory: 7000000 },
+  { id: 0, name: "Hazelnuts", price: 18, inventory: 80000000 }
 ];
 // idCollection prevents ID reuse
 const idCollection = [0, 1, 2, 3, 4, 5, 6, 7];
@@ -37,13 +37,13 @@ function createProduct(name, price, inventory) {
   product.inventory = inventory;
   collection.push(product);
   idCollection.push(product.id);
-  // console.logs the product in the collection
+  // console.log the product in the collection
   for (let i = 0; i < collection.length; i++) {
     if (collection[i]["id"] === product.id) {
       console.log(collection[i]);
     }
   }
-  // returns true if product is in the collection
+  // return true if product is in the collection
   return collection.some(function(element) {
     return element === product;
   });
@@ -61,34 +61,30 @@ function updateProduct(id, name, price, inventory) {
     // return false if ID is not in collection
     return false;
   } else {
+    // find and update product with ID
     for (let i = 0; i < collection.length; i++) {
       if (collection[i]["id"] === id) {
-        if (name) {
-          collection[i].name = name;
-          // returns false if name has not been updated
-          if (collection[i].name !== name) {
-            return false;
-          }
-        }
-        if (price) {
-          collection[i].price = price;
-          // returns false if name has not been updated
-          if (collection[i].price !== price) {
-            return false;
-          }
-        }
-        if (inventory) {
-          collection[i].inventory = inventory;
-          // returns false if name has not been updated
-          if (collection[i].inventory !== inventory) {
-            return false;
-          }
-        }
-        console.log(collection[i]);
-        return true;
+        collection[i].name = name;
+        collection[i].price = price;
+        collection[i].inventory = inventory;
       }
     }
   }
+  // console.log product
+  for (let i = 0; i < collection.length; i++) {
+    if (collection[i]["id"] === id) {
+      console.log(collection[i]);
+    }
+  }
+  // check if product has been updated
+  return collection.some(function(element) {
+    return (
+      element.id === id &&
+      element.name === name &&
+      element.price === price &&
+      element.inventory === inventory
+    );
+  });
 }
 
 // delete product from collection
@@ -103,27 +99,17 @@ function deleteProduct(id) {
     // return false if ID is not in collection
     return false;
   } else {
-    // find and delete element with ID
+    // find and delete product with ID
     for (let i = 0; i < collection.length; i++) {
       if (collection[i]["id"] === id) {
         collection.splice(i, 1);
       }
     }
   }
-  // check if ID is in collection
-  if (
-    collection.some(function(element) {
-      return element.id === parseInt(id);
-    }) === true
-  ) {
-    // return false if ID is still in collection
-    return false;
-    // return true if ID is not in collection
-  } else {
-    console.log(collection);
-    console.log(idCollection);
-    return true;
-  }
+  // check if product is in collection
+  return collection.every(function(element) {
+    return element.id !== id;
+  });
 }
 
 module.exports = {
