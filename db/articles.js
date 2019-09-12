@@ -40,7 +40,7 @@ function getArticle(title) {
 }
 
 // add article to collection
-// return article from collection
+// return result
 function createArticle(title, body, author) {
   // check if title already exists in collection
   if (
@@ -66,10 +66,7 @@ function createArticle(title, body, author) {
 }
 
 // update article
-// take in new title, body, author, and req.params.title
-// use req.params.title to find article
-// update title, body, author, and urlTitle and return status
-// return article from collection
+// return result
 function updateArticle(title, body, author, reqParamsTitle) {
   // check if article is in collection
   if (
@@ -78,6 +75,15 @@ function updateArticle(title, body, author, reqParamsTitle) {
     }) === false
   ) {
     // return false if article is not in collection
+    return false;
+    // check if title is unique
+  } else if (
+    collection.some(function(element) {
+      return element.title === title;
+    }) === true &&
+    title !== reqParamsTitle
+  ) {
+    // return false if title is not unique
     return false;
   } else {
     // find and update article with reqParamsTitle
@@ -102,7 +108,7 @@ function updateArticle(title, body, author, reqParamsTitle) {
 }
 
 // delete article from collection
-// return whole collection
+// return result
 function deleteArticle(title) {
   // check if title is in collection
   if (

@@ -110,7 +110,6 @@ router.delete("/:id", (req, res) => {
     res.redirect("/products/" + id);
   } else {
     let success = productsDb.delete(id);
-    console.log(id + " " + success);
     if (success === true) {
       errorMessage = "Product deleted successfully";
       res.redirect("/products/");

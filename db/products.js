@@ -26,7 +26,7 @@ function getProduct(id) {
 }
 
 // add product to collection
-// return product from collection
+// return result
 function createProduct(name, price, inventory) {
   let product = {};
   product.id = idCollection.length;
@@ -42,7 +42,7 @@ function createProduct(name, price, inventory) {
 }
 
 // update product
-// return product from collection
+// return result
 function updateProduct(id, name, price, inventory) {
   // check if ID is in collection
   if (
@@ -73,8 +73,8 @@ function updateProduct(id, name, price, inventory) {
   });
 }
 
-// delete product from collection
-// return whole collection
+// delete product
+// return result
 function deleteProduct(id) {
   // check if product is in collection
   if (
